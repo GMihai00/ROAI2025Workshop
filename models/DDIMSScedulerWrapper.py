@@ -8,6 +8,9 @@ class DDIMSScedulerWrapper:
         # DDIMScheduler does not require manual noise addition
         return latents
         
+    def get_timesteps(self):
+        return self.scheduler.timesteps
+        
     def set_timesteps(self, num_inference_steps):
         self.scheduler.set_timesteps(num_inference_steps)
     

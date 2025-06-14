@@ -8,7 +8,7 @@ from PIL import Image
 class ImageGenerator:
     def __init__(self, scheduler, torch_device="cuda", unet=None):
         
-        self.schedulder = scheduler
+        self.scheduler = scheduler
 
         if unet is not None:
             self.unet = unet
@@ -30,12 +30,12 @@ class ImageGenerator:
             )
         else:
             # noise the initial image
-            start_timestep = self.scheduler.timesteps[start_step]
+            start_timestep = self.scheduler.get_timesteps()[start_step]
             noise = torch.randn_like(starting_latent)
             latents = self.scheduler.add_noise(starting_latent, noise, start_timestep)
         
         latents = starting_latent.to(self.torch_device).half()
-        latents = self.scheduler.add_initial_noise(latents=latents, initial_timestamp=start_step)
+        latents = self.scheduler.add_initial_noise(latents=latents, iteration=start_step)
         return latents
         
     def predict_noise(self, latents, timestamp, text_embeddings, guidance_scale):
@@ -93,7 +93,7 @@ class ImageGenerator:
         latents = self.prepare_initial_latent_noise(batch_size, height, width, generator, start_step, starting_latent)
         
         with torch.autocast(self.torch_device):
-            for i, t in tqdm(enumerate(self.scheduler.timesteps)):
+            for i, t in tqdm(enumerate(self.scheduler.get_timesteps())):
                 if i >= start_step:
                     # expand the latents to avoid doing two forward passes.
                     latent_model_input = torch.cat([latents] * 2)

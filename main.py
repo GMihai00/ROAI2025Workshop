@@ -6,8 +6,8 @@ import torch
 
 torch_device = "cuda" if torch.cuda.is_available() else "cpu"
 
-scheduler = LMSDiscreteSchedulerWrapper()
-# scheduler = DDIMSScedulerWrapper()
+# scheduler = LMSDiscreteSchedulerWrapper()
+scheduler = DDIMSScedulerWrapper()
 
 imageGenerator = ImageGenerator(scheduler=scheduler, torch_device=torch_device)
 

@@ -13,7 +13,7 @@ class EmbeddingsGenerator:
     def encode(self, prompt, batch_size):
         text_input = self.tokenizer(prompt, padding="max_length", max_length=self.tokenizer.model_max_length, truncation=True, return_tensors="pt")
         with torch.no_grad():
-            text_embeddings = self.text_encoder(text_input.input_ids.to(self.torch_device).half())[0]
+            text_embeddings = self.text_encoder(text_input.input_ids.to(self.torch_device))[0]
         max_length = text_input.input_ids.shape[-1]
         
         # blank text
@@ -21,7 +21,7 @@ class EmbeddingsGenerator:
             [""] * batch_size, padding="max_length", max_length=max_length, return_tensors="pt"
         )
         with torch.no_grad():
-            uncond_embeddings = self.text_encoder(uncond_input.input_ids.to(self.torch_device).half())[0]
+            uncond_embeddings = self.text_encoder(uncond_input.input_ids.to(self.torch_device))[0]
         
         text_embeddings = torch.cat([uncond_embeddings, text_embeddings])
         
