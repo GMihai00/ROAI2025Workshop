@@ -18,10 +18,15 @@ pipe = StableDiffusionPipeline.from_pretrained(
 ).to("cuda")
 
 # Run inference
-prompt = "A futuristic city skyline at sunset"
-image = pipe(prompt, num_inference_steps=50).images[0]
+prompt = """A student face. While participating in the olympia of informatics learnt the truths of AI and is now 
+now rapidly gaining knowledge over the world with the help of AI."""
 
-image.show()
-# display(image)
-image.save("output.png")
+
+for i in range(0, 5):
+    
+    image = pipe(prompt, num_inference_steps=50).images[0]
+    
+    image.show()
+    
+    image.save(f"./images/output{i}.png")
 
