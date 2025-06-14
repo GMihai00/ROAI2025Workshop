@@ -30,3 +30,28 @@ images = imageGenerator.generate(prompt=prompt,
 
 images[0].show()
 
+
+# prompt = ["A person that is turning into a cyborg, 4k, trending in artstation, fantasy vivid colors"]
+# image_path = "images/steampunk_computer_lab.png"
+# height = 512
+# width = 512
+# start_step = 25
+# num_inference_steps = 50
+# guidance_scale = 7.5
+# batch_size = 1
+# # for reproducibility, to uniquely generated the same image every time
+# generator = torch.manual_seed(4)
+
+
+# images = imageGenerator.augment_image(prompt=prompt,
+#                         image_path=image_path,
+#                         height=height,
+#                         width=width,
+#                         num_inference_steps=num_inference_steps,
+#                         guidance_scale=guidance_scale,
+#                         batch_size=batch_size,
+#                         generator=generator)
+
+# images[0].show()
+
+
