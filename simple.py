@@ -22,7 +22,7 @@ prompt = """A student face. While participating in the olympia of informatics le
 now rapidly gaining knowledge over the world with the help of AI."""
 
 
-for i in range(0, 5):
+for i in range(0, 2):
     
     image = pipe(prompt, num_inference_steps=50).images[0]
     
