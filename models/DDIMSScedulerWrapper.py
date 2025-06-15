@@ -19,7 +19,7 @@ class DDIMSScedulerWrapper:
         
     def add_noise_inference(self, latent, iteration):
         # automatically handled by the scheduler
-        pass
+        return latent
         
     def step(self, noise_pred, timestamp, latents):
         return self.scheduler.step(noise_pred, timestamp, latents)
