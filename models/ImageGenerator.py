@@ -64,7 +64,6 @@ class ImageGenerator:
         generator = torch.manual_seed(4)): 
         
         im = Image.open(image_path).convert('RGB')
-        print(im, im.size, im.mode)
         im = im.resize((height,width))
         encoded = self.image_helper.pil_to_latent(im)
         
