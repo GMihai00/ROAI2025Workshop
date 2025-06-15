@@ -98,7 +98,7 @@ class ImageGenerator:
                     # expand the latents to avoid doing two forward passes.
                     latent_model_input = torch.cat([latents] * 2)
                     
-                    self.scheduler.add_noise_inference(latent_model_input, i)
+                    latent_model_input = self.scheduler.add_noise_inference(latent_model_input, i)
                     
                     noise_pred = self.predict_noise(latent_model_input, t, text_embeddings, guidance_scale)
             

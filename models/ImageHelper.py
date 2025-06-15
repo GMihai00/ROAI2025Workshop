@@ -25,11 +25,11 @@ class ImageHelper:
         # bath of latents -> list of images
         latents = (1 / 0.18215) * latents
         with torch.no_grad():
-            image = self.vae.decode(latents)[0]
-        image = (image / 2 + 0.5).clamp(0, 1)
-        image = image.detach().cpu().permute(0, 2, 3, 1).numpy()
-        images = (image * 255).round().astype("uint8")
-        pil_images = [Image.fromarray(image) for image in images]
-        return pil_images
+            pil_images = self.vae.decode(latents).sample 
+        pil_images = (pil_images / 2 + 0.5).clamp(0, 1)  # normalize
+        pil_images = pil_images.mul(255).byte().permute(0, 2, 3, 1).cpu().numpy()
+        final_images = [Image.fromarray(image) for image in pil_images]
+        return final_images
+        
 
 

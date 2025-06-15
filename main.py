@@ -6,13 +6,13 @@ import torch
 
 torch_device = "cuda" if torch.cuda.is_available() else "cpu"
 
-# scheduler = LMSDiscreteSchedulerWrapper()
-scheduler = DDIMSScedulerWrapper()
+scheduler = LMSDiscreteSchedulerWrapper()
+# scheduler = DDIMSScedulerWrapper()
 
 imageGenerator = ImageGenerator(scheduler=scheduler, torch_device=torch_device)
 
-prompt = ["A person that is turning into a cyborg, 4k, trending in artstation, fantasy vivid colors"]
-# prompt = ["A digital illustration of a steampunk computer laboratory with clockwork machines, 4k, detailed, trending in artstation, fantasy vivid colors"]
+# prompt = ["A person that is turning into a cyborg, 4k, trending in artstation, fantasy vivid colors"]
+prompt = ["A digital illustration of a steampunk computer laboratory with clockwork machines, 4k, detailed, trending in artstation, fantasy vivid colors"]
 height = 512
 width = 768
 num_inference_steps = 50

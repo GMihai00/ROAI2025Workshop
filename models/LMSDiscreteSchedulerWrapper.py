@@ -16,7 +16,7 @@ class LMSDiscreteSchedulerWrapper():
         self.scheduler.set_timesteps(num_inference_steps)
         
     def add_noise(self, latents, noise, timestamp):
-        self.add_noise(latents, noise, timestamp)
+        self.scheduler.add_noise(latents, noise, timestamp)
         
     def add_noise_inference(self, latent, iteration):
         sigma = self.scheduler.sigmas[iteration]
