@@ -32,7 +32,7 @@ class ImageGenerator:
             # noise the initial image
             start_timestep = self.scheduler.get_timesteps()[start_step]
             noise = torch.randn_like(starting_latent)
-            latents = self.scheduler.add_noise(starting_latent, noise, start_timestep)
+            starting_latent = self.scheduler.add_noise(starting_latent, noise, start_timestep)
         
         latents = starting_latent.to(self.torch_device).half()
         latents = self.scheduler.add_initial_noise(latents=latents, iteration=start_step)
@@ -64,6 +64,7 @@ class ImageGenerator:
         generator = torch.manual_seed(4)): 
         
         im = Image.open(image_path).convert('RGB')
+        print(im, im.size, im.mode)
         im = im.resize((height,width))
         encoded = self.image_helper.pil_to_latent(im)
         
