@@ -13,9 +13,9 @@ class ImageHelper:
         
     def pil_to_latent(self, input_im):
         # Single image -> single latent in a batch (so size 1, 4, 64, 64)
-        tensor = self.to_tensor_tfm(input_im).unsqueeze(0).to(self.torch_device) * 2 - 1  # Note scaling
+        tensor = self.to_tensor_tfm(input_im).unsqueeze(0) * 2 - 1  # Note scaling
         if self.torch_device == "cuda":
-            tensor = tensor.half()
+            tensor = tensor.to(self.torch_device)
         with torch.no_grad():
             encoded = self.vae.encode(tensor)
             latent = encoded.latent_dist.mean # or .mean or .sample
@@ -25,6 +25,8 @@ class ImageHelper:
         # bath of latents -> list of images
         latents = (1 / 0.18215) * latents
         with torch.no_grad():
+            if self.torch_device == "cuda":
+                latents = latents.half()
             pil_images = self.vae.decode(latents).sample 
         pil_images = (pil_images / 2 + 0.5).clamp(0, 1)  # normalize
         pil_images = pil_images.mul(255).byte().permute(0, 2, 3, 1).cpu().numpy()
