@@ -13,7 +13,7 @@ class ImageGenerator:
         if unet is not None:
             self.unet = unet
         else:
-            self.unet = UNet2DConditionModel.from_pretrained("CompVis/stable-diffusion-v1-4", subfolder="unet", use_auth_token=True)
+            self.unet = UNet2DConditionModel.from_pretrained("stable-diffusion-v1-5/stable-diffusion-v1-5", subfolder="unet", use_auth_token=True)
             
         self.image_helper = ImageHelper(torch_device=torch_device)
         self.embeddings_generator = EmbeddingsGenerator(torch_device=torch_device)
