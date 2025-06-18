@@ -15,7 +15,7 @@ class ImageHelper:
         # Single image -> single latent in a batch (so size 1, 4, 64, 64)
         tensor = self.to_tensor_tfm(input_im).unsqueeze(0) * 2 - 1  # Note scaling
         if self.torch_device == "cuda":
-            tensor = tensor.to(self.torch_device)
+            tensor = tensor.to(self.torch_device).half()
         with torch.no_grad():
             encoded = self.vae.encode(tensor)
             latent = encoded.latent_dist.mean # or .mean or .sample
